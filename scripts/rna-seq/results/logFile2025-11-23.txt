@@ -1,4 +1,0 @@
-rna-seq/data/raw/f1.fastq.gz add it to the folder
-rna-seq/data/raw/f2.fastq.gz add it to the folder
-rna-seq/data/raw/f3.fastq.gz add it to the folder
-rna-seq/data/raw/f4.fastq.gz add it to the folder
