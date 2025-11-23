@@ -1,0 +1,111 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# --- Color and formatting definitions ---
+RESET="\033[0m"
+BOLD="\033[1m"
+DIM="\033[2m" # Unused but keeping consistent with project
+FG_TEAL="\033[38;5;37m" # Unused but keeping consistent with project
+FG_PURPLE="\033[38;5;135m" # Unused but keeping consistent with project
+FG_SILVER="\033[38;5;250m" # Unused but keeping consistent with project
+FG_WHITE="\033[97m" # Unused but keeping consistent with project
+FG_GREEN="\033[38;5;82m"
+FG_RED="\033[31m"
+FG_YELLOW="\033[33m"
+FG_BLUE="\033[34m"
+
+# --- Initial Setup ---
+# Preserve your original greeting and variable usage
+whoami_var=$(whoami) # Renamed to avoid clash with function if any
+date_var=$(date +%Y-%m-%d) # Renamed to avoid clash with function if any
+
+echo -e "${FG_BLUE}${BOLD}Hello ${whoami_var}! We are going to run A Quality Control application for FastQ files.${RESET}"
+
+# --- User Input & Path Validation ---
+read -rp "${whoami_var} Please enter the name of the projectSetUp created previously : " projectSetUp
+
+# --- Use the projectSetUp variable as the base for all other paths ---
+# The projectSetUp variable should ideally be the FULL PATH to the project
+# For instance, if projectSetUp is "/home/user/MyProject", then raw_data_dir becomes "/home/user/MyProject/data/raw"
+raw_data_dir="$projectSetUp/data/raw"
+fastqc_output_dir="$projectSetUp/results/figures/fastqc_reports"
+log_dir="$projectSetUp/results/logs"
+logFile="$log_dir/fastqc_log_$(date +%Y%m%d_%H%M%S).txt"
+
+# Verify that the necessary directories and tools exist
+if [ ! -d "$raw_data_dir" ]; then
+    echo -e "${FG_RED}Error: Raw data directory not found at '${raw_data_dir}'. Please ensure the project was set up correctly.${RESET}" >&2
+    exit 1
+fi
+
+if ! command -v fastqc &> /dev/null; then
+    echo -e "${FG_RED}Error: 'fastqc' command not found. Please install FastQC and ensure it is in your system's PATH.${RESET}" >&2
+    exit 1
+fi
+
+# Create output directories if they don't exist
+mkdir -p "$fastqc_output_dir"
+mkdir -p "$log_dir"
+touch "$logFile"
+
+# --- Logging ---
+echo "FastQC Workflow Log" > "$logFile"
+echo "-------------------" >> "$logFile"
+echo "Project Directory: $projectSetUp" >> "$logFile"
+echo "Run Date: $(date)" >> "$logFile"
+echo "-------------------" >> "$logFile"
+
+# --- Find FASTQ Files ---
+echo -e "\n${FG_YELLOW}🔍 Searching for FASTQ files in '${raw_data_dir}'...${RESET}"
+# Use find to locate files ending in .fastq.gz or .fq.gz and store them in an array
+# -print0 and read -d '' are used to handle filenames with spaces
+rawFiles=()
+while IFS= read -r -d '' file; do
+    rawFiles+=("$file")
+done < <(find "$raw_data_dir" -name "*.fastq.gz" -o -name "*.fq.gz" -print0)
+
+if [ ${#rawFiles[@]} -eq 0 ]; then
+    echo -e "${FG_RED}Error: No FASTQ files (*.fastq.gz or *.fq.gz) found in '${raw_data_dir}'.${RESET}" >&2
+    echo "Error: No FASTQ files found." >> "$logFile"
+    exit 1
+fi
+
+echo "Found ${#rawFiles[@]} FASTQ file(s) to process." | tee -a "$logFile"
+
+# --- Main Processing Loop ---
+echo -e "\n${FG_YELLOW}🚀 Running FastQC on all found files...${RESET}"
+echo -e "\n--- FastQC Processing ---" >> "$logFile"
+
+for fastq_file in "${rawFiles[@]}"; do
+    filename=$(basename "$fastq_file")
+    echo -e "🧬 ${FG_GREEN}Processing:${RESET} $filename"
+    echo "Running fastqc on: $filename" >> "$logFile"
+    
+    # Run fastqc, directing output to the designated folder.
+    # The command is wrapped in a subshell with error checking.
+    if ! fastqc "$fastq_file" -o "$fastqc_output_dir"; then
+        echo -e "${FG_RED}❌ Error running FastQC on $filename.${RESET}" | tee -a "$logFile"
+    else
+        echo "Successfully processed $filename." >> "$logFile"
+    fi
+done
+
+# --- Final Summary with MultiQC (Optional but Recommended) ---
+echo -e "\n${FG_YELLOW}📊 Attempting to generate a MultiQC summary report...${RESET}"
+if command -v multiqc &> /dev/null; then
+    multiqc_output_dir="$projectSetUp/results/figures" # MultiQC output can be placed directly in figures
+    echo "Running MultiQC to aggregate reports..." | tee -a "$logFile"
+    if multiqc "$fastqc_output_dir" -o "$multiqc_output_dir" --force; then
+        echo -e "\n${FG_GREEN}✅ MultiQC report generated successfully in '${multiqc_output_dir}'.${RESET}" | tee -a "$logFile"
+    else
+        echo -e "${FG_YELLOW}⚠️ Warning: MultiQC ran but encountered errors.${RESET}" | tee -a "$logFile"
+    fi
+else
+    echo -e "${FG_YELLOW}Warning: 'multiqc' command not found. Skipping summary report generation.${RESET}" | tee -a "$logFile"
+    echo "Warning: 'multiqc' command not found." >> "$logFile"
+fi
+
+echo -e "\n${FG_GREEN}🎉 FastQC workflow complete!${RESET}"
+echo -e "${FG_BLUE}Check the reports in: ${fastqc_output_dir}${RESET}"
+echo -e "${FG_BLUE}A detailed log was saved to: ${logFile}${RESET}"
