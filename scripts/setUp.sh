@@ -101,6 +101,21 @@ fastQc() {
   read -rp "Press Enter to return to menu..."
 }
 
+ft_trimmomatic() {
+  banner
+  center "$(printf '%b%s%b' "$FG_GREEN" 'Module : Trimmomatic tool for sequence enhancement : ' "$RESET") "
+  echo
+  line
+  echo
+  (
+    sleep 0.5
+    ./trimmomatic.sh
+  )
+  echo
+  center "$(printf '%b%s%b' "$FG_GREEN" 'Trimmomatic performed successfully ' "$RESET") "
+  footer
+  read -rp "Press Enter to return to menu"
+}
 multiQc() {
   banner
   center "$(printf '%b%s%b' "$FG_WHITE$BOLD" 'Module : MultiQc Analysis Report ' "$RESET")"
@@ -154,8 +169,8 @@ menu() {
       fastQc
       ;;
     3)
-      echo "Trimmomatic module not yet implemented."
-      sleep 2
+      echo "Trimmomatic module."
+      ft_trimmomatic
       ;;
     4)
       echo "MultiQc module"
