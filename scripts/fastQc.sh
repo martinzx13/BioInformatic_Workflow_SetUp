@@ -80,20 +80,6 @@ for fastqFile in "${rawFiles[@]}"; do
   fi
 done
 
-# --- Final Summary with MultiQC (from suggest.txt) ---
-echo -e "\n${FG_YELLOW}📊 Attempting to generate a MultiQC summary report...${RESET}"
-if command -v multiqc &>/dev/null; then
-  multiqc_output_dir="$resultdir/figures" # Place report in the main figures dir
-  echo "Running MultiQC to aggregate reports..." | tee -a "$logFile"
-  if multiqc "$fastqc_output_dir" -o "$multiqc_output_dir" --force; then
-    echo -e "\n${FG_GREEN}✅ MultiQC report generated successfully in '${multiqc_output_dir}'.${RESET}" | tee -a "$logFile"
-  else
-    echo -e "${FG_YELLOW}⚠️ Warning: MultiQC ran but encountered errors.${RESET}" | tee -a "$logFile"
-  fi
-else
-  echo -e "${FG_YELLOW}Warning: 'multiqc' command not found. Skipping summary report generation.${RESET}" | tee -a "$logFile"
-fi
-
 echo -e "\n${FG_GREEN} FastQC workflow complete!${RESET}"
 echo -e "${FG_BLUE}Check the reports in: ${fastqc_output_dir}${RESET}"
 echo -e "${FG_BLUE}A detailed log was saved to: ${logFile}${RESET}"
