@@ -43,6 +43,7 @@ directories=(
   "$baseDir/data/processed"
   "$baseDir/data/reference"
   "$baseDir/results/figures"
+  "$baseDir/results/reports"
   "$baseDir/results/tables"
   "$baseDir/results/logs"
   "$baseDir/scripts/main_scripts"
@@ -73,4 +74,3 @@ done
 echo -e "\n${FG_GREEN}✅ Project structure for '${projectName}' created and verified successfully in '${baseDir}'!${RESET}"
 echo -e "\nAll directories created and verified successfully." >>"$logFile"
 echo -e "${FG_BLUE}A detailed log has been saved to: ${logFile}${RESET}"
-

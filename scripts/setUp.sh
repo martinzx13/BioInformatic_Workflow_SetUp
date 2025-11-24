@@ -101,6 +101,21 @@ fastQc() {
   read -rp "Press Enter to return to menu..."
 }
 
+multiQc() {
+  banner
+  center "$(printf '%b%s%b' "$FG_WHITE$BOLD" 'Module : MultiQc Analysis Report ' "$RESET")"
+  echo
+  line
+  echo
+  (
+    ./multiQc.sh
+  )
+  echo
+  center "$(printf '%b%s%b' $FG_GREEN 'MultiQc Analysis performed successfully' "$RESET")"
+  footer
+  read -rp "Press Enter to return to menu"
+
+}
 menu() {
   while true; do
     banner
@@ -143,8 +158,8 @@ menu() {
       sleep 2
       ;;
     4)
-      echo "MultiQc module not yet implemented."
-      sleep 2
+      echo "MultiQc module"
+      multiQc
       ;;
     q | quit | exit)
       clear
