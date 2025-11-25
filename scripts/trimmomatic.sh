@@ -31,7 +31,7 @@ read -rp "Please enter the name of the project directory: " projectPath
 # --- Path and Variable Setup ---
 
 workDir="$projectPath/data/raw"
-outputDir="$projectPath/results/trimmomatic_output"
+outputDir="$projectPath/data/processed/trimmomatic_output"
 logDir="$projectPath/results/logs"
 logFile="$logDir/trimmomatic_log_$(date +%Y%m%d_%H%M%S).txt"
 

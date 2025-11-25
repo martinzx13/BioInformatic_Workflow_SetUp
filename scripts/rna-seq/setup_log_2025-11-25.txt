@@ -1,0 +1,21 @@
+Project Setup Log
+-----------------
+Project Name: rna-seq
+Creation Date: Tue Nov 25 07:49:28 AM WET 2025
+Base Directory: ./rna-seq
+-----------------
+
+Creating project folder structure...
+CREATED: ./rna-seq/data/raw
+CREATED: ./rna-seq/data/processed
+CREATED: ./rna-seq/data/reference
+CREATED: ./rna-seq/results/figures
+CREATED: ./rna-seq/results/reports
+CREATED: ./rna-seq/results/tables
+CREATED: ./rna-seq/results/logs
+CREATED: ./rna-seq/scripts/main_scripts
+CREATED: ./rna-seq/scripts/utils
+
+Verifying created folder structure...
+
+All directories created and verified successfully.

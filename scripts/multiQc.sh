@@ -19,7 +19,7 @@ read -rp "Please provide the name of the project created: " projectName
 # --- Variable Declaration ---
 
 mutiqcReport="$projectName/results/multiqc_report"
-workDir="$projectName/results/figures/fastqc_report"
+workDir="$projectName/results/figures/fastqc_reports"
 logDir="$projectName/results/logs"
 logFile="$logDir/multiqc_log_$(date +%Y%m%d_%H%M%S).txt"
 
@@ -74,4 +74,3 @@ fi
 echo -e "\n${FG_GREEN}🎉 MultiQC workflow complete!${RESET}"
 echo -e "${FG_BLUE}Check the report in: ${mutiqcReport}${RESET}"
 echo -e "${FG_BLUE}A detailed log was saved to: ${logFile}${RESET}"
-

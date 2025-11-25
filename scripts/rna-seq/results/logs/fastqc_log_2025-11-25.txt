@@ -1,0 +1,48 @@
+FastQC Workflow Log
+-------------------
+Project Directory: rna-seq
+Run Date: 2025-11-25
+-------------------
+Found 20 file(s) to process.
+
+--- FastQC Processing ---
+Running fastqc on: sample10_R1.fastq.gz
+Successfully processed sample10_R1.fastq.gz.
+Running fastqc on: sample10_R2.fastq.gz
+Successfully processed sample10_R2.fastq.gz.
+Running fastqc on: sample1_R1.fastq.gz
+Successfully processed sample1_R1.fastq.gz.
+Running fastqc on: sample1_R2.fastq.gz
+Successfully processed sample1_R2.fastq.gz.
+Running fastqc on: sample2_R1.fastq.gz
+Successfully processed sample2_R1.fastq.gz.
+Running fastqc on: sample2_R2.fastq.gz
+Successfully processed sample2_R2.fastq.gz.
+Running fastqc on: sample3_R1.fastq.gz
+Successfully processed sample3_R1.fastq.gz.
+Running fastqc on: sample3_R2.fastq.gz
+Successfully processed sample3_R2.fastq.gz.
+Running fastqc on: sample4_R1.fastq.gz
+Successfully processed sample4_R1.fastq.gz.
+Running fastqc on: sample4_R2.fastq.gz
+Successfully processed sample4_R2.fastq.gz.
+Running fastqc on: sample5_R1.fastq.gz
+Successfully processed sample5_R1.fastq.gz.
+Running fastqc on: sample5_R2.fastq.gz
+Successfully processed sample5_R2.fastq.gz.
+Running fastqc on: sample6_R1.fastq.gz
+Successfully processed sample6_R1.fastq.gz.
+Running fastqc on: sample6_R2.fastq.gz
+Successfully processed sample6_R2.fastq.gz.
+Running fastqc on: sample7_R1.fastq.gz
+Successfully processed sample7_R1.fastq.gz.
+Running fastqc on: sample7_R2.fastq.gz
+Successfully processed sample7_R2.fastq.gz.
+Running fastqc on: sample8_R1.fastq.gz
+Successfully processed sample8_R1.fastq.gz.
+Running fastqc on: sample8_R2.fastq.gz
+Successfully processed sample8_R2.fastq.gz.
+Running fastqc on: sample9_R1.fastq.gz
+Successfully processed sample9_R1.fastq.gz.
+Running fastqc on: sample9_R2.fastq.gz
+Successfully processed sample9_R2.fastq.gz.

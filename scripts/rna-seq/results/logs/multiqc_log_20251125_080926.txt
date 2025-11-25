@@ -1,0 +1,26 @@
+MultiQC Workflow Log
+--------------------
+Project: rna-seq
+Run Date: Tue Nov 25 08:09:26 AM WET 2025
+--------------------
+Input directory: rna-seq/results/figures/fastqc_reports
+Output directory: rna-seq/results/multiqc_report
+--------------------
+
+--- MultiQC Processing ---
+Command: multiqc "rna-seq/results/figures/fastqc_reports" -o "rna-seq/results/multiqc_report" --force --export
+
+/// MultiQC 🔍 v1.32
+
+       file_search | Search path: /home/juan-aldana/Desktop/Master/Intro_Bioinformatics_Genomics/Classes/script/BioInformatic_Workflow_SetUp/scripts/rna-seq/results/figures/fastqc_reports
+
+            fastqc | Found 20 reports
+     write_results | Rendering plots. Export plots to formats png, svg, pdf is requested, so it might take a while. To disable plot export, set `export_plots: false` in config, or remove the `--export-plots` command line flag
+              plot | Unable to export plot to flat images: fastqc-status-check-heatmap
+
+
+     write_results | Data        : rna-seq/results/multiqc_report/multiqc_data
+     write_results | Report      : rna-seq/results/multiqc_report/multiqc_report.html
+     write_results | Plots       : rna-seq/results/multiqc_report/multiqc_plots
+           multiqc | MultiQC complete
+MultiQC completed successfully.
