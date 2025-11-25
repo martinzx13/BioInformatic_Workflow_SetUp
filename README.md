@@ -1,5 +1,7 @@
 # BioInformatic Workflow SetUp
 
+![Workflow Demo](assets/demo.gif)
+
 A collection of scripts to bootstrap a bioinformatics project structure and run a typical upstream analysis workflow, including quality control, trimming, and reporting.
 
 ## Dependencies and Installation
@@ -53,7 +55,23 @@ The scripts assume and will create a project structure like this:
     └── trimmomatic.sh
 ```
 
-## Scripts and Usage
+## Usage
+
+After cloning the repository and setting up the Conda environment (as described in "Dependencies and Installation"), activate your `bio_env` environment and launch the main interactive workflow:
+
+```bash
+# Activate your Conda environment
+conda activate bio_env
+
+# Launch the interactive menu
+bash scripts/setUp.sh
+```
+
+The `setUp.sh` script will present an interactive menu to guide you through setting up project folders, running quality control, trimming, and generating MultiQC reports.
+
+---
+
+The individual scripts below can also be run standalone if preferred:
 
 ### 1. `create_test_data.sh` - Generate Dummy Data
 
